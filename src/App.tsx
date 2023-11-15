@@ -4,7 +4,6 @@ import SavedBase64 from "./SavedBase64";
 
 function App() {
   const [pdf, setPdf] = useState("");
-
   const handeStringChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPdf(e.target.value);
   };

@@ -7,6 +7,8 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
+  Image,
+  Link,
 } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -31,6 +33,9 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
 
   return (
     <>
+      <Link href="https://base64topdf.netlify.app/">
+        <Image src="/Screenshot_21.png" alt="logo" />
+      </Link>
       <Popover trigger="hover">
         <PopoverTrigger>
           <Button shadow="lg" p="2" onClick={saveNewBase64}>
