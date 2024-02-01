@@ -7,8 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
-  Image,
-  Link,
+  useToast,
 } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -24,7 +23,20 @@ interface IProps {
 
 function SavedBase64({ pdfString, setPdf }: IProps) {
   const [base64List, setBase64List] = useState([] as Base64Storage[]);
+  const toast = useToast();
+
   const saveNewBase64 = () => {
+    if (pdfString.length === 0) {
+      toast({
+        title: "Base64 is empty!",
+        description: "Please input some text to save Base64.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
     setBase64List((prevState) => [
       ...prevState,
       { date: new Date(), pdfBase64: pdfString },
@@ -33,9 +45,6 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
 
   return (
     <>
-      <Link href="https://base64topdf.netlify.app/">
-        <Image src="/Screenshot_21.png" alt="logo" />
-      </Link>
       <Popover trigger="hover">
         <PopoverTrigger>
           <Button shadow="lg" p="2" onClick={saveNewBase64}>
