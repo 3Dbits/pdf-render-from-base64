@@ -16,7 +16,14 @@ function App() {
       gap="1"
       pr="2"
     >
-      <GridItem pl="2" pt="2" area={"sidebar"}>
+      <GridItem
+        pl="2"
+        pt="2"
+        area="sidebar"
+        display="flex"
+        alignItems="center"
+        flexDir="column"
+      >
         <Link href="https://base64topdf.netlify.app/">
           <Image src="/3DBitsPDF.png" alt="logo" pl="4" />
         </Link>

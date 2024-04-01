@@ -1,12 +1,11 @@
 import {
   Box,
   Button,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
+  Editable,
+  EditablePreview,
+  EditableTextarea,
   Text,
+  Tooltip,
   useToast,
 } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -14,6 +13,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 interface Base64Storage {
   date: Date;
   pdfBase64: string;
+  pdfName?: string;
 }
 
 interface IProps {
@@ -38,40 +38,50 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
     }
 
     setBase64List((prevState) => [
+      {
+        date: new Date(),
+        pdfBase64: pdfString,
+        pdfName: pdfString.substring(0, 10) + "...",
+      },
       ...prevState,
-      { date: new Date(), pdfBase64: pdfString },
     ]);
   };
 
   return (
     <>
-      <Popover trigger="hover">
-        <PopoverTrigger>
-          <Button shadow="lg" p="2" onClick={saveNewBase64}>
-            Click to save!
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverBody>
-            Session storage! If you close tab or browser list will selfdestruct!
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-      {base64List.map((base64) => (
-        <Box
-          shadow="lg"
-          p="3"
-          key={base64.pdfBase64}
-          onClick={() => setPdf(base64.pdfBase64)}
-        >
-          <Text>
-            {base64.date.getHours()}:{base64.date.getMinutes()}:
-            {base64.date.getSeconds()}
-          </Text>
-          <Text>{base64.pdfBase64.substring(0, 20)}...</Text>
-        </Box>
-      ))}
+      <Tooltip
+        hasArrow
+        label="Session storage! If you close tab or browser, the list will selfdestruct!"
+        bg="gray.300"
+        color="black"
+        closeDelay={300}
+        placement="right"
+        aria-label="A tooltip"
+      >
+        <Button shadow="lg" p="2" onClick={saveNewBase64}>
+          Click to stash!
+        </Button>
+      </Tooltip>
+      <Box maxHeight="80vh">
+        {base64List.map((base64) => (
+          <Box
+            shadow="lg"
+            p="3"
+            key={base64.pdfBase64}
+            onClick={() => setPdf(base64.pdfBase64)}
+            width="107px"
+          >
+            <Text>
+              {base64.date.getHours()}:{base64.date.getMinutes()}:
+              {base64.date.getSeconds()}
+            </Text>
+            <Editable defaultValue={base64.pdfName}>
+              <EditablePreview />
+              <EditableTextarea />
+            </Editable>
+          </Box>
+        ))}
+      </Box>
     </>
   );
 }
