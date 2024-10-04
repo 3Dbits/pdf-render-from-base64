@@ -11,7 +11,8 @@ import {
 import { ChangeEvent } from "react";
 import SavedBase64 from "./SavedBase64";
 import DownloadButton from "./DownloadButton";
-import "./background.css";
+import "./style.css";
+import GitHubCorner from "./GitHubCorner";
 
 function App() {
   const { onCopy, value, setValue, hasCopied } = useClipboard("");
@@ -24,46 +25,49 @@ function App() {
   };
 
   return (
-    <Flex gap="2" p="2" h="100vh" className="custombackground">
-      <VStack minW="32">
-        <Link href="https://base64topdf.netlify.app/">
-          <Image src="/3DBitsPDF2.png" alt="logo" />
-        </Link>
-        <DownloadButton pdf={value} />
-        <SavedBase64 pdfString={value} setPdf={setValue} />
-      </VStack>
-      <Box flex="1">
-        <Flex gap="2" mb="2">
-          <Textarea
-            placeholder="Input Base64 text to render PDF"
-            _placeholder={{ textAlign: "center" }}
-            size="xs"
-            h="20"
-            onChange={handeStringChange}
-            value={value}
-            border="1px"
-            backgroundColor="white"
-          />
-          <VStack minW="20">
-            <Button onClick={onCopy} size="sm" shadow="lg">
-              {hasCopied ? "Copied!" : "Copy"}
-            </Button>
-            <Button onClick={handeStringClear} size="sm" shadow="lg">
-              Clear
-            </Button>
-          </VStack>
-        </Flex>
-        {value.length !== 0 && (
-          <embed
-            src={`data:application/pdf;base64,${value}`}
-            type="application/pdf"
-            width="100%"
-            height="100%"
-            style={{ maxHeight: "calc(100vh - 100px)" }}
-          />
-        )}
-      </Box>
-    </Flex>
+    <>
+      <Flex gap="2" p="2" h="100vh" className="custombackground">
+        <VStack minW="32">
+          <Link href="https://base64topdf.netlify.app/">
+            <Image src="/3DBitsPDF2.png" alt="logo" />
+          </Link>
+          <DownloadButton pdf={value} />
+          <SavedBase64 pdfString={value} setPdf={setValue} />
+        </VStack>
+        <Box flex="1">
+          <Flex gap="2" mb="2">
+            <Textarea
+              placeholder="Input Base64 text to render PDF"
+              _placeholder={{ textAlign: "center" }}
+              size="xs"
+              h="20"
+              onChange={handeStringChange}
+              value={value}
+              border="1px"
+              backgroundColor="white"
+            />
+            <VStack minW="20">
+              <Button onClick={onCopy} size="sm" shadow="lg">
+                {hasCopied ? "Copied!" : "Copy"}
+              </Button>
+              <Button onClick={handeStringClear} size="sm" shadow="lg">
+                Clear
+              </Button>
+            </VStack>
+          </Flex>
+          {value.length !== 0 && (
+            <embed
+              src={`data:application/pdf;base64,${value}`}
+              type="application/pdf"
+              width="100%"
+              height="100%"
+              style={{ maxHeight: "calc(100vh - 100px)" }}
+            />
+          )}
+        </Box>
+      </Flex>
+      <GitHubCorner />
+    </>
   );
 }
 
