@@ -40,7 +40,7 @@ function DownloadButton({ pdf }: DownloadButtonProps) {
   };
 
   return (
-    <Button shadow="lg" p="2" mb="2" onClick={downloadPdf}>
+    <Button shadow="lg" p="2" onClick={downloadPdf}>
       Download PDF
     </Button>
   );
