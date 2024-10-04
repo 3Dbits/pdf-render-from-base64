@@ -8,7 +8,7 @@ import {
   VStack,
   useClipboard,
 } from "@chakra-ui/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import SavedBase64 from "./SavedBase64";
 import DownloadButton from "./DownloadButton";
 
