@@ -75,7 +75,7 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
           Click to stash!
         </Button>
       </Tooltip>
-      <Box maxHeight="80vh">
+      <Box maxHeight="80vh" backgroundColor="white">
         {base64List.map((base64, index) => (
           <Box
             shadow="lg"
