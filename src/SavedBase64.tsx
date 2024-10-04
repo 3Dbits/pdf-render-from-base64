@@ -10,6 +10,7 @@ import {
   HStack,
   Spacer,
   IconButton,
+  VStack,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
@@ -46,7 +47,8 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
       {
         date: new Date(),
         pdfBase64: pdfString,
-        pdfName: pdfString.substring(0, 10) + "...",
+        pdfName:
+          pdfString.substring(0, 10) + (pdfString.length < 9 ? "" : "..."),
       },
       ...prevState,
     ]);
@@ -61,7 +63,7 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
   };
 
   return (
-    <>
+    <VStack align="stretch" width="100%">
       <Tooltip
         hasArrow
         label="Session storage! If you close tab or browser, the list will selfdestruct!"
@@ -75,15 +77,23 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
           Click to stash!
         </Button>
       </Tooltip>
-      <Box maxHeight="80vh" backgroundColor="white">
+      <VStack
+        overflowY="auto"
+        maxHeight="calc(100vh - 200px)" // Adjust this value as needed
+        spacing={2}
+        align="stretch"
+        width="100%"
+        className="scrollable-vstack"
+      >
         {base64List.map((base64, index) => (
           <Box
             shadow="lg"
-            p="3"
             rounded="md"
             key={base64.pdfBase64}
             onClick={() => setPdf(base64.pdfBase64)}
-            width="130px"
+            width="100%"
+            backgroundColor="white"
+            p="0.5"
           >
             <HStack>
               <Text>
@@ -104,8 +114,8 @@ function SavedBase64({ pdfString, setPdf }: IProps) {
             </Editable>
           </Box>
         ))}
-      </Box>
-    </>
+      </VStack>
+    </VStack>
   );
 }
 
